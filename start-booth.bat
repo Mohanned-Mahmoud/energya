@@ -18,6 +18,10 @@ if %ERRORLEVEL% equ 0 (
 )
 
 echo Launching Energya Photobooth Desktop Kiosk...
+if exist "%~dp0scripts\configure_printer.py" (
+    echo Auto-configuring printer to 102x152mm Glossy Borderless...
+    python "%~dp0scripts\configure_printer.py"
+)
 cd /d "%~dp0build"
 start "" "Energya-Photobooth.exe"
 
