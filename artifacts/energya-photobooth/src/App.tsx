@@ -489,6 +489,8 @@ export default function App() {
       printCanvas.height = 1800;
       const pCtx = printCanvas.getContext('2d');
       if (!pCtx) throw new Error('canvas');
+      pCtx.imageSmoothingEnabled = true;
+      pCtx.imageSmoothingQuality = 'high';
       cropCover(
         pCtx,
         source,
@@ -501,7 +503,7 @@ export default function App() {
         Boolean(config.mirrorPhoto)
       );
       pCtx.drawImage(printFrameImg, 0, 0, 1200, 1800);
-      const printPhotoResult = printCanvas.toDataURL('image/jpeg', 0.98);
+      const printPhotoResult = printCanvas.toDataURL('image/jpeg', 1.0);
 
       return { screenPhoto: screenPhotoResult, printPhoto: printPhotoResult };
     },
