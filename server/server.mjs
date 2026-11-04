@@ -5,8 +5,18 @@ import crypto from 'node:crypto';
 import os from 'node:os';
 import { exec } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+let S3Client = null, PutObjectCommand = null, GetObjectCommand = null, ListObjectsV2Command = null, getSignedUrl = null;
+try {
+  const s3 = await import('@aws-sdk/client-s3');
+  const signer = await import('@aws-sdk/s3-request-presigner');
+  S3Client = s3.S3Client;
+  PutObjectCommand = s3.PutObjectCommand;
+  GetObjectCommand = s3.GetObjectCommand;
+  ListObjectsV2Command = s3.ListObjectsV2Command;
+  getSignedUrl = signer.getSignedUrl;
+} catch (e) {
+  console.log('[Server] Note: AWS SDK not installed. Running in 100% standalone offline local mode.');
+}
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'artifacts/energya-photobooth/dist/public');
@@ -147,6 +157,11 @@ async function loadConfig() {
 let activeConfig = await loadConfig();
 
 function createR2Client(cfg) {
+  if (!S3Client) {
+    return {
+      send: async () => { throw new Error('Cloudflare R2 SDK not installed.'); }
+    };
+  }
   const r2 = cfg.r2 || {};
   const accessKeyId = process.env.R2_ACCESS_KEY_ID || r2.accessKeyId;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || r2.secretAccessKey;
