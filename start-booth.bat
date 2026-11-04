@@ -21,14 +21,6 @@ if %ERRORLEVEL% equ 0 (
     )
 )
 
-:: Auto-configure Epson printer to 102x152mm Glossy Borderless
-where python >nul 2>nul
-if %ERRORLEVEL% equ 0 (
-    if exist "%~dp0scripts\configure_printer.py" (
-        python "%~dp0scripts\configure_printer.py"
-    )
-)
-
 echo Launching Energya Photobooth Desktop Kiosk...
 cd /d "%~dp0build"
 start "" "Energya-Photobooth.exe"

@@ -615,18 +615,4 @@ server.listen(port, '0.0.0.0', () => {
   console.log(` R2 Bucket:  ${activeConfig.r2?.bucket || 'energya'}`);
   console.log(` Storage:    Mode "${activeConfig.storageMode || 'both'}"`);
   console.log(`=======================================================`);
-
-  // Auto-configure Epson printer for 102x152mm Glossy Borderless
-  try {
-    const configScript = path.join(root, 'scripts/configure_printer.py');
-    exec(`python "${configScript}"`, (err, stdout) => {
-      if (err) {
-        console.warn('[PrinterConfig] Auto-config notice:', err.message);
-      } else if (stdout) {
-        console.log(stdout.trim());
-      }
-    });
-  } catch (e) {
-    console.warn('[PrinterConfig] Auto-config warning:', e.message);
-  }
 });
