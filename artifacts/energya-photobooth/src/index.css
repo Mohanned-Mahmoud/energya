@@ -2105,7 +2105,7 @@ h2 {
 ======================================================== */
 @media print {
   @page {
-    size: 4in 6in portrait;
+    size: 102mm 152mm portrait;
     margin: 0mm !important;
   }
   *, *:before, *:after {
@@ -2114,8 +2114,8 @@ h2 {
     print-color-adjust: exact !important;
   }
   html, body {
-    width: 4in !important;
-    height: 6in !important;
+    width: 102mm !important;
+    height: 152mm !important;
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
@@ -2130,8 +2130,8 @@ h2 {
     inset: 0 !important;
     left: 0 !important;
     top: 0 !important;
-    width: 4in !important;
-    height: 6in !important;
+    width: 102mm !important;
+    height: 152mm !important;
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
@@ -2140,8 +2140,8 @@ h2 {
     z-index: 2147483647 !important;
   }
   .print-only img {
-    width: 4in !important;
-    height: 6in !important;
+    width: 102mm !important;
+    height: 152mm !important;
     object-fit: fill !important;
     display: block !important;
     margin: 0 !important;
